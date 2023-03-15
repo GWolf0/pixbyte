@@ -43,7 +43,7 @@ function onEdit(){
 function onRemove(){
     if(confirm("Confirm remove this post?")){
         AppService.removePost(post.id);
-        window.location.href=`/profile/${loggedUser.name}`;
+        window.location.href=`/#/profile/${loggedUser.name}`;
     }
 }
 function onAddComment(){

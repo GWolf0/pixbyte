@@ -93,7 +93,7 @@ return (
                         <li key={i} className="py-1.5 border-b border-light dark:border-dark cursor-pointer hover:opacity-70">
                             {
                                 searchType=="people"?
-                                <a href={`/profile/${res.name}`}>
+                                <a href={`/#/profile/${res.name}`}>
                                     <div className="py-1 px-2 flex items-center">
                                         <ProfilePic imgUrl={res.profileImg} username={res.name} />
                                         <p className="text-sm text-dark dark:text-light ml-4">{res.name}</p>

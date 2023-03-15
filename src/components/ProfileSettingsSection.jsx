@@ -22,7 +22,7 @@ function onChangeUsername(){
         return alert(`This username '${newUsername}' already exists!`);
     }
     AppService.updateUsername(loggedUser.id,newUsername);
-    window.location.href=`/profile/${newUsername}`;
+    window.location.href=`/#/profile/${newUsername}`;
 }
 
 
