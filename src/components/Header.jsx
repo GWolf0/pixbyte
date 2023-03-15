@@ -69,10 +69,10 @@ function onThemeToggle(){
         setDarkTheme(false);
     }
 }
-function onLogout(){
+function onLogout(){console.log("out")
     AppService.logout();
-    //GoogleAuthService.revoke("")
-    window.location.href="#/";
+    navigate("/",{replace:true});
+    window.location.reload();
 }
 
 

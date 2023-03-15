@@ -1,24 +1,29 @@
 import { createContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import ProfilePage from "../views/ProfilePage";
 import AppService from "../services/appService";
 
 const profileContext=createContext();
 
 function ProfileContextProvider({settings}){
+const navigate=useNavigate();
+//
 const loggedUser=AppService.isLogged();
 const params=useParams();
 const username=params.username;
 const user=AppService.getUserByName(username);
 //states
 //const [user,setUser]=useState(AppService.getUserByName(username));
-const [mine,setMine]=useState(!loggedUser?false:loggedUser.name===user.name);
-const [isLinked,setIsLinked]=useState((mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id));
+const [mine,setMine]=useState(false);
+const [isLinked,setIsLinked]=useState(false);
 const [posts,setPosts]=useState([]);
 const [isLoadingPosts,setIsLoadingPosts]=useState(false);
 const [links,setLinks]=useState([]);
 const [imagesChooserModalOn,setImagesChooserModalOn]=useState(false);
 //effects
+useEffect(()=>{
+    if(!user)return navigate("/");
+},[]);
 useEffect(()=>{
     getPosts();
     getLinks();

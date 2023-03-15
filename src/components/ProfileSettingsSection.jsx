@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import AppService from "../services/appService";
 import Helper from "../services/helper";
 import ProfilePic from "./ProfilePic";
 
 
 function ProfileSettingsSection({loggedUser}){
+const navigate=useNavigate();
 //refs
 const usernameInputRef=useRef();
 //effects
@@ -22,7 +24,7 @@ function onChangeUsername(){
         return alert(`This username '${newUsername}' already exists!`);
     }
     AppService.updateUsername(loggedUser.id,newUsername);
-    window.location.href=`#/profile/${newUsername}`;
+    navigate(`/profile/${newUsername}`);
 }
 
 

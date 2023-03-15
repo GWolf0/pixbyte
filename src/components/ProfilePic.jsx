@@ -10,7 +10,7 @@ function render(){
 }
 
 return redirectUrl!=null?(
-    <Link to={redirectUrl}>{render()}</Link>
+    <Link to={redirectUrl} replace={true}>{render()}</Link>
 ):
 <>
 {render()}
