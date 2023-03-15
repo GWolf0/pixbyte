@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {BrowserRouter as Router,Routes,Route,Outlet} from 'react-router-dom';
+import {HashRouter as Router,Routes,Route,Outlet} from 'react-router-dom';
 import {GlobalContextProvider} from './contexts/globalContext';
 import { HomeContextProvider } from './contexts/homeContext';
 import { PostContextProvider } from './contexts/postContext';
