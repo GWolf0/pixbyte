@@ -17,7 +17,7 @@ const isLoadingPosts=profile_x.isLoadingPosts;
 return(
 <section id="postsSection" className="py-4 bg-inherit rounded mt-6">
     <div className="py-4 border-b border-semitrans dark:border-dark border-dashed">
-        <NewPost />
+        <NewPost openImagesChooserModal={()=>profile_x.setImagesChooserModalOn(true)} />
     </div>
     <div className="py-2 flex mb-4 items-center">
         <p className="text-lg text-semibold text-dark dark:text-lighter">Posts</p>
