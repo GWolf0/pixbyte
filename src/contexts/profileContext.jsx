@@ -17,6 +17,7 @@ const [isLinked,setIsLinked]=useState((mine||!loggedUser)?false:AppService.isLin
 const [posts,setPosts]=useState([]);
 const [isLoadingPosts,setIsLoadingPosts]=useState(false);
 const [links,setLinks]=useState([]);
+const [imagesChooserModalOn,setImagesChooserModalOn]=useState(false);
 //effects
 useEffect(()=>{
     getPosts();
@@ -67,7 +68,7 @@ function onAddPost(newPost){
 
 
 return(
-    <profileContext.Provider value={{user,mine,posts,onAddPost,isLoadingPosts,isLinked,setIsLinked,links,setLinks}}>
+    <profileContext.Provider value={{user,mine,posts,onAddPost,isLoadingPosts,isLinked,setIsLinked,links,setLinks,imagesChooserModalOn,setImagesChooserModalOn}}>
         <ProfilePage settings={settings} />
     </profileContext.Provider>
 );

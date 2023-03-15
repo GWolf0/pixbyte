@@ -7,6 +7,7 @@ import ProfilePostsSection from "../components/ProfilePostsSection";
 import ProfileSettingsSection from "../components/ProfileSettingsSection";
 import { profileContext, } from "../contexts/profileContext";
 import AppService from "../services/appService";
+import ImageChooserModal from "../components/modals/ImageChooserModal";
 
 function ProfilePage({settings}){
 const profile_x=useContext(profileContext);
@@ -40,6 +41,8 @@ return(
         {section=="links"&&<ProfileLinksSection loggedUser={loggedUser} user={user} mine={mine} />}
         {section=="settings"&&mine&&<ProfileSettingsSection loggedUser={loggedUser} />}
     </main>
+    {profile_x.imagesChooserModalOn&&<div id="overlay" className="fixed top-0 left-0 w-screen h-screen bg-semitrans"></div>}
+    {profile_x.imagesChooserModalOn&&<ImageChooserModal onClose={()=>profile_x.setImagesChooserModalOn(false)} />}
 </div>
 );
 }

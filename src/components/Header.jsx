@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppService from "../services/appService";
 import GoogleAuthService from "../services/googleSignInService";
 import Helper from "../services/helper";
@@ -72,7 +72,7 @@ function onThemeToggle(){
 function onLogout(){
     AppService.logout();
     //GoogleAuthService.revoke("")
-    window.location.href="/#/";
+    window.location.href="./#/";
 }
 
 
@@ -98,8 +98,12 @@ return(
             }
         </div>
         <ul hidden={!layout.profileMinMenu} id="profileMinMenu" className="fixed rounded overflow-hidden py-1 px-2 bg-lighter dark:bg-darkest border border-light dark:border-darker shadow" style={{width:'min(100vw,360px)',top:'64px',right:'0.5rem'}}>
-            <li onClick={()=>window.location.href=`/#/profile/${user.name}`} className="py-2 px-4 text-dark dark:text-light text-base border-b border-light dark:border-darker cursor-pointer hover:opacity-70"><i className="bi-person mr-4"></i> Profile</li>
-            <li onClick={()=>window.location.href=`/#/profile/${user.name}/settings`} className="py-2 px-4 text-dark dark:text-light text-base border-none border-light cursor-pointer hover:opacity-70"><i className="bi-gear mr-4"></i> Settings</li>
+            <Link to={`/profile/${user.name}`}>
+                <li className="py-2 px-4 text-dark dark:text-light text-base border-b border-light dark:border-darker cursor-pointer hover:opacity-70"><i className="bi-person mr-4"></i> Profile</li>
+            </Link>
+            <Link to={`/profile/${user.name}/settings`}>
+                <li className="py-2 px-4 text-dark dark:text-light text-base border-none border-light cursor-pointer hover:opacity-70"><i className="bi-gear mr-4"></i> Settings</li>
+            </Link>
             <li className="py-2 px-4 text-dark dark:text-light"><label className="flex items-center"><MCheckBox value={darkTheme} onChange={onThemeToggle} /> <p className="ml-2">Dark Theme</p></label></li>
             <li onClick={onLogout} className="py-2 px-4 my-2 bg-secondary text-darkest text-base border-none border-light cursor-pointer rounded hover:opacity-70"><i className="bi-box-arrow-left mr-4"></i> Logout</li>
         </ul>
