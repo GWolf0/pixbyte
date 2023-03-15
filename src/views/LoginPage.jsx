@@ -37,7 +37,7 @@ function onRegister(){
     if(res!==null){
         setRegErrors(res);
     }else{
-        window.location.href="./#/";
+        window.location.href="#/";
     }
 }
 function onLogin(){
@@ -46,7 +46,7 @@ function onLogin(){
     if(email==""||pwd=="")return;
     const res=AppService.login(email,pwd);
     if(res!==null){
-        window.location.href="./#/";
+        window.location.href="#/";
     }else{
         setLogErrors(true);
     }

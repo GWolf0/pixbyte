@@ -72,7 +72,7 @@ function onThemeToggle(){
 function onLogout(){
     AppService.logout();
     //GoogleAuthService.revoke("")
-    window.location.href="./#/";
+    window.location.href="#/";
 }
 
 
