@@ -5,13 +5,14 @@ import AppService from "../services/appService";
 
 const profileContext=createContext();
 
+
 function ProfileContextProvider({settings}){
 const navigate=useNavigate();
 //
 const loggedUser=AppService.isLogged();
 const params=useParams();
 const username=params.username;
-const user=AppService.getUserByName(username);
+const user=AppService.getUserByName(username);//console.log("change",username)
 //states
 //const [user,setUser]=useState(AppService.getUserByName(username));
 const [mine,setMine]=useState(false);
@@ -19,19 +20,21 @@ const [isLinked,setIsLinked]=useState(false);
 const [posts,setPosts]=useState([]);
 const [isLoadingPosts,setIsLoadingPosts]=useState(false);
 const [links,setLinks]=useState([]);
+const [media,setMedia]=useState([]);
 const [imagesChooserModalOn,setImagesChooserModalOn]=useState(false);
 //effects
 useEffect(()=>{
     if(!user)return navigate("/");
 },[]);
 useEffect(()=>{
-    getPosts();
+    getPosts(true);
     getLinks();
+    setMedia(AppService.getUserMedia(user.id));
     setMine(!loggedUser?false:loggedUser.name===user.name);
 },[user]);
 useEffect(()=>{
     setIsLinked((mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id));
-},[mine])
+},[mine]);
 useEffect(()=>{
     //events handlers
     function onScroll(e){
@@ -49,16 +52,17 @@ useEffect(()=>{
     };
 },[posts,isLoadingPosts]);
 //methods
-function getPosts(){
+function getPosts(reset=false){
     if(isLoadingPosts)return;
     setIsLoadingPosts(true);
-    const _posts=AppService.getUserPosts(user.id,posts.length,10);
+    const _posts=AppService.getUserPosts(user.id,!reset?posts.length:0,10);//console.log("getting posts for user id",user.id,"from",!reset?posts.length:0)
     if(_posts.length<1){
         setIsLoadingPosts(false);
         return;
     }
     setTimeout(()=>{
-        setPosts(prev=>[...prev,..._posts]);
+        if(!reset)setPosts(prev=>[...prev,..._posts]);
+        else setPosts(_posts);
         setIsLoadingPosts(false);
     },1300);
 }
@@ -73,7 +77,7 @@ function onAddPost(newPost){
 
 
 return(
-    <profileContext.Provider value={{user,mine,posts,onAddPost,isLoadingPosts,isLinked,setIsLinked,links,setLinks,imagesChooserModalOn,setImagesChooserModalOn}}>
+    <profileContext.Provider value={{user,mine,posts,onAddPost,isLoadingPosts,isLinked,setIsLinked,links,setLinks,media,setMedia,imagesChooserModalOn,setImagesChooserModalOn}}>
         <ProfilePage settings={settings} />
     </profileContext.Provider>
 );

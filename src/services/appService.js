@@ -242,6 +242,9 @@ class AppService{
         AppService.saveTestData();
     }
     //image things
+    static getUserMedia(userID){
+        return AppService.testData.images.filter(m=>m.user_id===userID);
+    }
     static insertImageFile(userID,name,size,imageUrl){
         const newImageFile={id:Helper.randID(),user_id:userID,name:name,size:size,url:imageUrl,createdAt:new Date()};
         AppService.testData.images.push(newImageFile);
@@ -315,7 +318,7 @@ class AppService{
         ],
 
         images:[
-            {id:1,user_id:1,url:'/assets/images/bg.jpg',name:'bg.jpg',size:0,createdAt:new Date()},
+            {id:1,user_id:1,url:'./assets/images/bg.jpg',name:'bg.jpg',size:0,createdAt:new Date()},
         ]
     
     };

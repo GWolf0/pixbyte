@@ -24,7 +24,7 @@ return(
         <span className="w-fit h-fit text-xs text-semibold text-darkest px-2.5 py-0.5 rounded-full bg-primary ml-2">{postsCount}</span>
     </div>
     {
-        posts.map((p,i)=>(<PostCard key={p.id} post={p} onPostUpdated={profile_x.updatePost} />))
+        profile_x.posts.map((p,i)=>(<PostCard key={p.id} post={p} onPostUpdated={profile_x.updatePost} />))
     }
     <div className="fslex justify-center py-4" style={{display:isLoadingPosts?'block':'none'}}>
         <p className="text-dark dark:text-light text-xs text-center">Loading...</p>
