@@ -25,17 +25,18 @@ const [media,setMedia]=useState([]);
 const [imagesChooserModalOn,setImagesChooserModalOn]=useState(false);
 //effects
 useEffect(()=>{
-    if(!user)return navigate("/");
+    if(!user)return navigate("/404");
 },[]);
 useEffect(()=>{
+    setMine(!loggedUser?false:loggedUser.name===user.name);
+    setIsLinked((mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id));
     getPosts(true);
     getLinks();
     setMedia(AppService.getUserMedia(user.id));
-    setMine(!loggedUser?false:loggedUser.name===user.name);
 },[user]);
-useEffect(()=>{
-    setIsLinked((mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id));
-},[mine]);
+// useEffect(()=>{console.log("mine chaged",mine,(mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id))
+//     setIsLinked((mine||!loggedUser)?false:AppService.isLinkedByUser(loggedUser.id,user.id));
+// },[mine]);
 useEffect(()=>{
     //events handlers
     function onScroll(e){
