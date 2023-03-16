@@ -71,7 +71,7 @@ function onThemeToggle(){
 }
 function onLogout(){console.log("out")
     AppService.logout();
-    navigate("/",{replace:true});
+    navigate("/");
     window.location.reload();
 }
 

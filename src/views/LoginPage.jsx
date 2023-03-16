@@ -37,7 +37,7 @@ function onRegister(){
     if(res!==null){
         setRegErrors(res);
     }else{
-        navigate('/',{replace:true});
+        navigate('/');
         window.location.reload();
     }
 }
@@ -47,7 +47,7 @@ function onLogin(){
     if(email==""||pwd=="")return;
     const res=AppService.login(email,pwd);
     if(res!==null){
-        navigate('/',{replace:true});
+        navigate('/');
         window.location.reload();
     }else{
         setLogErrors(true);

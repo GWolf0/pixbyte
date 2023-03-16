@@ -93,14 +93,14 @@ return (
                         <li key={i} className="py-1.5 border-b border-light dark:border-dark cursor-pointer hover:opacity-70">
                             {
                                 searchType=="people"?
-                                <a href={`/#/profile/${res.name}`}>
+                                <Link to={`/profile/${res.name}`} onBlur={()=>setSearchResultOn(false)} onClick={()=>setSearchResultOn(false)}>
                                     <div className="py-1 px-2 flex items-center">
                                         <ProfilePic imgUrl={res.profileImg} username={res.name} />
                                         <p className="text-sm text-dark dark:text-light ml-4">{res.name}</p>
                                     </div>
-                                </a>
+                                </Link>
                                     :
-                                <Link to={`/post/${res.id}`}>
+                                <Link to={`/post/${res.id}`} onBlur={()=>setSearchResultOn(false)} onClick={()=>setSearchResultOn(false)}>
                                     <div className="py-1 px-2">
                                         <p className="text-sm text-dark dark:text-light">{res.text.substr(0,Math.max(res.text.length,25))}</p>
                                     </div>

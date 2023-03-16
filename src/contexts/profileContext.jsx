@@ -5,6 +5,7 @@ import AppService from "../services/appService";
 
 const profileContext=createContext();
 
+let g_isLoadingPosts=false;
 
 function ProfileContextProvider({settings}){
 const navigate=useNavigate();
@@ -12,7 +13,7 @@ const navigate=useNavigate();
 const loggedUser=AppService.isLogged();
 const params=useParams();
 const username=params.username;
-const user=AppService.getUserByName(username);//console.log("change",username)
+const user=AppService.getUserByName(username);//console.log("change",username,user.id)
 //states
 //const [user,setUser]=useState(AppService.getUserByName(username));
 const [mine,setMine]=useState(false);
@@ -53,16 +54,19 @@ useEffect(()=>{
 },[posts,isLoadingPosts]);
 //methods
 function getPosts(reset=false){
-    if(isLoadingPosts)return;
+    if(g_isLoadingPosts)return;
+    g_isLoadingPosts=true;
     setIsLoadingPosts(true);
-    const _posts=AppService.getUserPosts(user.id,!reset?posts.length:0,10);//console.log("getting posts for user id",user.id,"from",!reset?posts.length:0)
-    if(_posts.length<1){
+    const _posts=AppService.getUserPosts(user.id,!reset?posts.length:0,10);//console.log("new posts",_posts,reset)
+    if(_posts.length<1&&!reset){
+        g_isLoadingPosts=false;
         setIsLoadingPosts(false);
         return;
     }
     setTimeout(()=>{
         if(!reset)setPosts(prev=>[...prev,..._posts]);
         else setPosts(_posts);
+        g_isLoadingPosts=false;
         setIsLoadingPosts(false);
     },1300);
 }

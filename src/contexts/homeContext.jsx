@@ -4,6 +4,8 @@ import HomePage from "../views/homePage";
 
 const homeContext=createContext();
 
+let g_isLoadingPosts=false;
+
 function HomeContextProvider(){
 const loggedUser=AppService.isLogged();
 //states
@@ -15,7 +17,7 @@ const [imagesChooserModalOn,setImagesChooserModalOn]=useState(false);
 
 //effects
 useEffect(()=>{
-    getPosts();
+    getPosts(true);
     setUserHasLinks(AppService.getUserLinks(loggedUser.id).length>0);
 },[]);
 useEffect(()=>{
@@ -36,16 +38,20 @@ useEffect(()=>{
     };
 },[posts,isLoadingPosts]);
 //methods
-function getPosts(){
-    if(isLoadingPosts)return;
+function getPosts(reset=false){
+    if(g_isLoadingPosts)return;
+    g_isLoadingPosts=true;
     setIsLoadingPosts(true);
     const _posts=AppService.getPosts(posts.length,10);
-    if(_posts.length<1){
+    if(_posts.length<1&&!reset){
+        g_isLoadingPosts=false;
         setIsLoadingPosts(false);
         return;
     }
     setTimeout(()=>{
-        setPosts(prev=>[...prev,..._posts]);
+        if(!reset)setPosts(prev=>[...prev,..._posts]);
+        else setPosts(_posts);
+        g_isLoadingPosts=false;
         setIsLoadingPosts(false);
     },1300);
 }
